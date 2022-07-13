@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import 'teamfe-lit-user-card';
+import UserCard from './components/user-card';
+import { User } from 'teamfe-lit-user-card';
+
 
 function App() {
+
+  const user: User = {
+    firstName: "Francesco",
+    lastName: "Rossi",
+    dob: '22-09-2022',
+    gender: 'male',
+    address: 'Viale Manzoni 6',
+    imgUrl: 'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png'
+  }
+
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  const handleCustomEvent = () => {
+    console.log('event fired!')
+    setIsDisabled(!isDisabled);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{padding:20}}>
+      <h2>This is parent component</h2>
+      <UserCard customEvent={() => handleCustomEvent()} user={user} isDisabled={isDisabled}></UserCard>
     </div>
   );
 }
